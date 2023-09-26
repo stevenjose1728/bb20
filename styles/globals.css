@@ -114,6 +114,10 @@ body {
   border-top: solid 1px #a6a6a6;
 }
 
+main {
+  background-color: white;
+}
+
 a {
   color: inherit;
   text-decoration: none;
