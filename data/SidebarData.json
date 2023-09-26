@@ -1,14 +1,91 @@
 {
   "data": [
     {
-      "id": 1,
-      "title": "Manage Content",
-      "link": "/"
+      "label": "Site Management",
+      "items": [
+        {
+          "title": "Manage Pages & Navigation",
+          "href": "/"
+        },
+        {
+          "title": "Manage Images & Files",
+          "href": "/"
+        }
+      ]
     },
     {
-      "id": 2,
-      "title": "Manage Categories",
-      "link": "/manage-categories"
+      "label": "Data Management",
+      "items": [
+        {
+          "title": "Manage Users",
+          "href": "/"
+        },
+        {
+          "title": "Manage Orders",
+          "href": "/"
+        },
+        {
+          "title": "Manage Package Orders",
+          "href": "/"
+        },
+        {
+          "title": "Batch Upload Users - Add New",
+          "href": "/"
+        },
+        {
+          "title": "Batch Upload Users - Update",
+          "href": "/"
+        },
+        {
+          "title": "Download Users Data",
+          "href": "/"
+        },
+        {
+          "title": "Manage Content",
+          "href": "/manage-content"
+        },
+        {
+          "title": "Manage Template Colors",
+          "href": "/"
+        },
+        {
+          "title": "Manage Specification",
+          "href": "/"
+        },
+        {
+          "title": "Manage Template Types",
+          "href": "/"
+        },
+        {
+          "title": "Manage MLS Properties",
+          "href": "/"
+        },
+        {
+          "title": "Manage Discounts",
+          "href": "/"
+        },
+        {
+          "title": "Manage Categories",
+          "href": "/manage-categories"
+        },
+        {
+          "title": "Manage Delivery Options",
+          "href": "/"
+        },
+        {
+          "title": "Cron Summary",
+          "href": "/"
+        }
+      ]
+    },
+    {
+      "label": "Site Administration",
+      "items": [
+        {
+          "title": "Manage Control Panel Access",
+          "href": "/"
+        }
+      ]
     }
   ]
 }

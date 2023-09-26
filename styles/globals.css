@@ -97,12 +97,21 @@ body {
   background-color: #444346 !important;
 }
 
-/* body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
-} */
+.accordion-title-sidebar {
+  background-color: #c3c3c3;
+  border-top-right-radius: 5px;
+  color: #555555;
+  font-size: large;
+}
+
+.accordion-content-sidebar {
+  color: red;
+  background-color: #c3c3c3;
+}
+
+.accordion-content-sidebar li {
+  border-top: solid 1px #a6a6a6;
+}
 
 a {
   color: inherit;
