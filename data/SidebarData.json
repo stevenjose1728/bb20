@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Manage Content",
+      "link": "/"
+    },
+    {
+      "id": 2,
+      "title": "Manage Categories",
+      "link": "/manage-categories"
+    }
+  ]
+}
