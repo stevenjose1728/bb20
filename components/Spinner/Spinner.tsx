@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { SpinnerContext } from '../context/SpinnerContext';
-const Layout = () => {
+import { SpinnerContext } from '../../context/SpinnerContext';
+const Spinner = () => {
   const { isLoading }: any = useContext(SpinnerContext);
 
   return (
@@ -17,4 +17,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default Spinner;
