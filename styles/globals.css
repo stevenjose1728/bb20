@@ -105,7 +105,8 @@ body {
 }
 
 .accordion-content-sidebar {
-  color: red;
+  color: rgb(22, 22, 22);
+  margin-top: 0;
   background-color: #c3c3c3;
 }
 

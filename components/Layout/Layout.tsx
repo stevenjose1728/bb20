@@ -8,7 +8,7 @@ type LayoutProps = {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <div className="uk-flex uk-flex-column uk-height-viewport">
-      <div className="uk-grid-divider uk-child-width-expand@s" data-uk-grid>
+      <div className="uk-child-width-expand@s" data-uk-grid>
         {/* Sidebar */}
         <Sidebar />
         {/* Content */}
