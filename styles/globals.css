@@ -114,6 +114,36 @@ body {
   border-top: solid 1px #a6a6a6;
 }
 
+.custom-table thead {
+  background-color: #434343;
+}
+
+.custom-table thead th {
+  color: white;
+}
+
+.custom-table td {
+  padding: 0.5rem 12px;
+}
+
+.red-circle {
+  height: 13px;
+  width: 13px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.green-circle {
+  height: 13px;
+  width: 13px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
 main {
   background-color: white;
 }
