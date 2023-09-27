@@ -122,6 +122,10 @@ body {
   background-color: #434343;
 }
 
+.bordered-card {
+  border: solid 2px #c3c3c3;
+}
+
 .custom-table thead th {
   color: white;
 }
