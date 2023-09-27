@@ -41,7 +41,7 @@ function ManageCategories() {
   }
   return (
     <Layout>
-      <div className="uk-card uk-card-default uk-card-hover uk-card-body custom-card">
+      <div className="uk-card uk-card-default uk-card-body custom-card">
         <div className="uk-card-header">
           <div className="uk-grid-small uk-flex-middle" data-uk-grid>
             <div className="uk-width-expand">
@@ -112,7 +112,6 @@ function ManageCategories() {
             </div>
           </div>
         </div>
-        <h3 className="uk-card-title">Default</h3>
         <table className="uk-table uk-table-divider uk-table-striped custom-table">
           <thead>
             <tr>

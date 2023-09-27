@@ -12,7 +12,7 @@ const Layout = ({ children }: LayoutProps) => {
         {/* Sidebar */}
         <Sidebar />
         {/* Content */}
-        <main className="uk-width-expand@m">
+        <main className="uk-width-expand@m bg-gray">
           {children}
         </main>
       </div>
