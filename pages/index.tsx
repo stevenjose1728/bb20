@@ -1,17 +1,25 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useMemo, useState, useEffect } from 'react'
 import CategoriesData from '@/data/CategoriesData.json'
 import Layout from '@/components/Layout/Layout'
 import Link from 'next/link'
 import { SpinnerContext } from '@/context/SpinnerContext';
 
-function ManageCategories() {
+function indexPage() {
+  const emptyCategoryFilter = { category: null, subCategory: null, interiorSubCategory: null }
   const { startLoading, stopLoading } = useContext(SpinnerContext);
-
+  const { data, subCategories: subCategoriesData, interiorSubCategories: interiorSubCategoriesData } = CategoriesData;
+  const [constantsData, setConstantsData] = useState({
+    categories: data,
+    subCategories: subCategoriesData,
+    interiorSubCategories: interiorSubCategoriesData
+  })
+  const [categoryFilter, setCategoryFilter] = useState<{ category: null | number, subCategory: null | number, interiorSubCategory: null | number }>(emptyCategoryFilter);
+  const [categories, setCategories] = useState(data);
   const [display, setDisplay] = useState<string>('');
   const [filterName, setFilterName] = useState<string>('');
   const displayOptions = [
     {
-      label: 'show all',
+      label: 'Display...',
       value: ''
     },
     {
@@ -23,11 +31,14 @@ function ManageCategories() {
       value: 'hidden',
     },
   ];
-
-  const { data } = CategoriesData;
-  const handleDisplayChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
-    setDisplay(event.target.value);
+    const concatFilter = event.target.name === 'category' ? emptyCategoryFilter : categoryFilter
+    const _categoryFilter = {
+      ...concatFilter,
+      [event.target.name]: parseInt(event.target.value)
+    }
+    setCategoryFilter(_categoryFilter);
   }
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -39,6 +50,22 @@ function ManageCategories() {
     setDisplay('');
     stopLoading();
   }
+  const memoSubCategories = useMemo(() => {
+    let _subCategories: typeof subCategoriesData = [];
+    let _interiorSubCategories: typeof interiorSubCategoriesData = [];
+    if (categoryFilter.category) {
+      _subCategories = constantsData.subCategories.filter(element => element.category_id === parseInt(categoryFilter.category?.toString() || ''));
+      if (categoryFilter.subCategory) {
+        _interiorSubCategories = constantsData.interiorSubCategories.filter(element => element.sub_category_id === parseInt(categoryFilter.subCategory?.toString() || ''));
+      }
+    } else {
+      setCategoryFilter(emptyCategoryFilter);
+    }
+    return {
+      subCategories: _subCategories,
+      interiorSubCategories: _interiorSubCategories
+    };
+  }, [categoryFilter]);
   return (
     <Layout>
       <div className="uk-card uk-card-default uk-card-body custom-card">
@@ -46,20 +73,20 @@ function ManageCategories() {
           <div className="uk-card-header">
             <div className="uk-grid-small uk-flex-middle" data-uk-grid>
               <div className="uk-width-expand">
-                <h4 className="uk-card-title uk-margin-remove-bottom uk-text-uppercase uk-text-center">Manage Content categories</h4>
+                <h4 className="uk-card-title uk-margin-remove-bottom uk-text-uppercase uk-text-center">Manage Content</h4>
               </div>
             </div>
           </div>
           <div className="uk-child-width-expand@s uk-text-center" data-uk-grid>
             <div>
               <div className="">
-                <label className="uk-form-label" htmlFor="displaySelect">Filter By</label>
+                <label className="uk-form-label" htmlFor="displaySelect">Display Filter</label>
                 <div className="uk-form-controls">
                   <select
                     id="displaySelect"
                     value={display}
                     className='uk-text-capitalize uk-select'
-                    onChange={handleDisplayChange}
+                    onChange={handleCategoryChange}
                   >
                     {
                       displayOptions.map(element => {
@@ -76,8 +103,6 @@ function ManageCategories() {
                   </select>
                 </div>
               </div>
-            </div>
-            <div>
               <div className="">
                 <label className="uk-form-label" htmlFor="search-by-name">Search by Name</label>
                 <div className="uk-form-controls">
@@ -93,6 +118,88 @@ function ManageCategories() {
                   >
                     Go
                   </button>
+                </div>
+              </div>
+            </div>
+            {/* End Col */}
+            <div>
+              <div className="">
+                <label className="uk-form-label" htmlFor="category">Filter By</label>
+                <div className="uk-form-controls">
+                  <select
+                    id="category"
+                    value={categoryFilter.category || ''}
+                    className='uk-text-capitalize uk-select'
+                    onChange={handleCategoryChange}
+                    name="category"
+                    placeholder='Category..'
+                  >
+                    {
+                      categories.map(element => {
+                        return (
+                          <option
+                            key={element.name}
+                            value={element.id}
+                          >
+                            {element.name}
+                          </option>
+                        )
+                      })
+                    }
+                  </select>
+                </div>
+              </div>
+              <div className="">
+                <label className="uk-form-label" htmlFor="subCategory">Sub Categories</label>
+                <div className="uk-form-controls">
+                  <select
+                    id="subCategory"
+                    value={categoryFilter.subCategory || ''}
+                    className='uk-text-capitalize uk-select'
+                    onChange={handleCategoryChange}
+                    name="subCategory"
+                    placeholder='Sub Category..'
+                    disabled={!categoryFilter.category}
+                  >
+                    {
+                      memoSubCategories.subCategories.map(element => {
+                        return (
+                          <option
+                            key={element.name}
+                            value={element.id}
+                          >
+                            {element.name}
+                          </option>
+                        )
+                      })
+                    }
+                  </select>
+                </div>
+              </div>
+              <div className="">
+                <label className="uk-form-label" htmlFor="interiorSubCategory">Interior Sub Categories</label>
+                <div className="uk-form-controls">
+                  <select
+                    id="interiorSubCategory"
+                    value={categoryFilter.interiorSubCategory || ''}
+                    className='uk-text-capitalize uk-select'
+                    onChange={handleCategoryChange}
+                    name="interiorSubCategory"
+                    disabled={!categoryFilter.category || !categoryFilter.subCategory}
+                  >
+                    {
+                      memoSubCategories.interiorSubCategories.map(element => {
+                        return (
+                          <option
+                            key={element.name}
+                            value={element.id}
+                          >
+                            {element.name}
+                          </option>
+                        )
+                      })
+                    }
+                  </select>
                 </div>
               </div>
             </div>
@@ -183,4 +290,4 @@ function ManageCategories() {
   )
 }
 
-export default ManageCategories
+export default indexPage
