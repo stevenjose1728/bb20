@@ -103,13 +103,44 @@ function ManageCategories() {
               }}
             >
               <div
+                className='uk-block'
               >
-                <button
-                  className="uk-button uk-button-text"
-                  onClick={() => handleResetForm()}
+                <div>
+                  <div
+                    data-uk-icon="icon: refresh"
+                  ></div>
+                  <button
+                    className="uk-button uk-button-text"
+                    onClick={() => handleResetForm()}
+                  >
+                    Reset
+                  </button>
+                </div>
+                <div
                 >
-                  Reset
-                </button>
+                  <div
+                    data-uk-icon="icon: plus"
+                  ></div>
+                  <Link
+                    href="/categories-form"
+                    className="uk-button uk-button-text"
+                    onClick={() => handleResetForm()}
+                  >
+                    New Sub Category
+                  </Link>
+                </div>
+                <div>
+                  <div
+                    data-uk-icon="icon: plus"
+                  ></div>
+                  <Link
+                    href="/categories-form"
+                    className="uk-button uk-button-text"
+                    onClick={() => handleResetForm()}
+                  >
+                    New Interior Category
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
