@@ -46,7 +46,7 @@ function ManageCategories() {
           <div className="uk-card-header">
             <div className="uk-grid-small uk-flex-middle" data-uk-grid>
               <div className="uk-width-expand">
-                <h4 className="uk-card-title uk-margin-remove-bottom uk-text-uppercase uk-text-center">Manage Content categories</h4>
+                <h4 className="uk-card-title uk-margin-remove-bottom uk-text-uppercase uk-text-center">Manage Content</h4>
               </div>
             </div>
           </div>
