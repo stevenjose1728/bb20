@@ -1,10 +1,12 @@
-import React, { useContext, useMemo, useState, useEffect } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import CategoriesData from '@/data/CategoriesData.json'
 import Layout from '@/components/Layout/Layout'
 import Link from 'next/link'
 import { SpinnerContext } from '@/context/SpinnerContext';
+import ContentData from '@/data/ContentData.json';
 
 function indexPage() {
+  const { data: contentData } = ContentData
   const emptyCategoryFilter = { category: null, subCategory: null, interiorSubCategory: null }
   const { startLoading, stopLoading } = useContext(SpinnerContext);
   const { data, subCategories: subCategoriesData, interiorSubCategories: interiorSubCategoriesData } = CategoriesData;
@@ -17,6 +19,7 @@ function indexPage() {
   const [categories, setCategories] = useState(data);
   const [display, setDisplay] = useState<string>('');
   const [filterName, setFilterName] = useState<string>('');
+  const tableRows = ['Title', 'Category', 'Display', 'Unlocked', 'Edit', 'Delete']
   const displayOptions = [
     {
       label: 'Display...',
@@ -254,18 +257,25 @@ function indexPage() {
           <table className="uk-table uk-table-divider uk-table-striped custom-table uk-margin-remove-bottom">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Display</th>
-                <th>Sort</th>
-                <th>Edit</th>
-                <th></th>
+                {
+                  tableRows.map(element => {
+                    return (
+                      <th
+                        key={element}
+                      >
+                        {element}
+                      </th>
+                    )
+                  })
+                }
               </tr>
             </thead>
             <tbody>
               {
-                data.map((item) => (
+                contentData.map((item) => (
                   <tr key={item.id}>
-                    <td >{item.name}</td>
+                    <td >{item.title}</td>
+                    <td>{item.category} </td>
                     <td className='uk-text-capitalize'>
                       <span className={(item.display === 'hidden' ? 'red' : 'green') + '-circle'}></span>
                       {item.display}
