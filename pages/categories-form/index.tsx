@@ -17,7 +17,10 @@ type Form = {
   landingPageHeadline: string,
   subCategoryDescription: string,
   active: boolean,
-  static: boolean
+  static: boolean,
+  landingPageTitle: string,
+  landingPagePrettyUrl: string,
+  landingPageDescriptionMetadata: string
 }
 const CKEditor = dynamic(() => import('@/components/CKEditor'), { ssr: false });
 function index() {
@@ -32,7 +35,10 @@ function index() {
     landingPageHeadline: '',
     subCategoryDescription: '',
     active: false,
-    static: false
+    static: false,
+    landingPageTitle: '',
+    landingPagePrettyUrl: '',
+    landingPageDescriptionMetadata: ''
   }
   const { startLoading, stopLoading } = useContext(SpinnerContext);
   const [categories, setCategories] = useState<Category[]>([])
@@ -179,6 +185,69 @@ function index() {
             value={form.subCategoryDescription}
           />
         </div>
+        {/* SEO Options */}
+        <ul data-uk-accordion>
+          <li>
+            <a className="uk-accordion-title uk-text-uppercase">
+              landing page seo
+              <span className='uk-text-small uk-margin-left uk-text-light'>
+                (optional)
+              </span>
+            </a>
+            <div className="uk-accordion-content">
+              <div data-uk-grid>
+                <div className='uk-width-1-2'>
+                  <div className="">
+                    <label className="uk-form-label uk-text-capitalize" htmlFor="form-stacked-text">
+                      title
+                    </label>
+                    <div className="uk-form-controls">
+                      <input
+                        className="uk-input"
+                        id="form-stacked-text"
+                        type="text"
+                        onChange={e => handleFormChange(e.target.value, 'landingPageTitle')}
+                        value={form.landingPageTitle}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className='uk-width-1-2'>
+                  <div className="">
+                    <label className="uk-form-label uk-text-capitalize" htmlFor="form-stacked-text">
+                      pretty url
+                    </label>
+                    <div className="uk-form-controls">
+                      <input
+                        className="uk-input"
+                        id="form-stacked-text"
+                        type="text"
+                        onChange={e => handleFormChange(e.target.value, 'landingPagePrettyUrl')}
+                        value={form.landingPagePrettyUrl}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="uk-margin">
+                <label className="uk-form-label uk-text-capitalize" htmlFor="form-stacked-text">
+                  description metadata
+                </label>
+                <textarea
+                  className="uk-textarea"
+                  rows={5}
+                  placeholder=""
+                  aria-label=""
+                  onChange={e => handleFormChange(e.target.value, 'landingPageDescriptionMetadata')}
+                  value={form.landingPageDescriptionMetadata}
+                >
+
+                </textarea>
+              </div>
+            </div>
+          </li>
+        </ul>
+        {/* End SEO Options */}
 
         <div data-uk-grid>
           <label
@@ -204,6 +273,11 @@ function index() {
             Static
           </label>
         </div>
+        <div className="separator"></div>
+        {/* Submit buttons */}
+        <button className="uk-button uk-button-secondary uk-button-small uk-margin-right">Submit</button>
+        <button className="uk-button uk-button-text uk-button-small uk-text-danger">Cancel</button>
+        {/* End Submit buttons */}
       </div>
     </Layout>
   )

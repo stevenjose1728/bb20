@@ -153,6 +153,12 @@ body {
   height: 100%;
 }
 
+.separator {
+  height: 5px;
+  background-color: gray;
+  margin: 2% 0;
+}
+
 .red-circle {
   height: 13px;
   width: 13px;
