@@ -232,23 +232,10 @@ function indexPage() {
                     data-uk-icon="icon: plus"
                   ></div>
                   <Link
-                    href="/categories-form"
+                    href="/content-form"
                     className="uk-button uk-button-text"
-                    onClick={() => handleResetForm()}
                   >
-                    New Sub Category
-                  </Link>
-                </div>
-                <div>
-                  <div
-                    data-uk-icon="icon: plus"
-                  ></div>
-                  <Link
-                    href="/categories-form"
-                    className="uk-button uk-button-text"
-                    onClick={() => handleResetForm()}
-                  >
-                    New Interior Category
+                    New Content
                   </Link>
                 </div>
               </div>
