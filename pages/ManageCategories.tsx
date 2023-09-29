@@ -6,14 +6,54 @@ import { SpinnerContext } from '@/context/SpinnerContext';
 import { CategoryService } from '@/services';
 import { Category } from '@/models/Category';
 import { useRouter } from 'next/router';
+import SubCategory from '@/models/SubCategory';
+import InteriorSubCategory from '@/models/InteriorSubCategory';
+import CategoriesRows from '@/components/ManageCategories/CategoriesRows';
 
+type Categories = Category & {
+  subCategories: Array<SubCategory & {
+    interiorSubCategories?: InteriorSubCategory[]
+  }>
+}
 function ManageCategories() {
   const router = useRouter();
   const { startLoading, stopLoading } = useContext(SpinnerContext);
-  const [categories, setCategories] = useState<Category[]>([{
+  const [categories, setCategories] = useState<Categories[]>([{
     categoryId: 1,
     categoryName: 'Categoria 1',
-    onDisplay: true
+    onDisplay: true,
+    subCategories: [{
+      subcategoryId: 1,
+      name: 'Sub Category 1',
+      catLandingDescription: '',
+      headling: '',
+      catLandingDescriptionMarkup: '',
+      descriptionMarkup: '',
+      externalUrlActive: '',
+      prettyUrl: '',
+      externalUrl: '',
+      fileOrig: '',
+      static: false,
+      onDisplay: false,
+      categoryId: 1,
+      interiorSubCategories: [
+        {
+          interiorsubcategoryId: 1,
+          name: 'Interior Sub Category 1',
+          catLandingDescription: '',
+          headline: '',
+          catLandingDescriptionMarkup: '',
+          descriptionMarkup: '',
+          externalUrlActive: false,
+          prettyUrl: '',
+          externalUrl: '',
+          fileOrig: '',
+          static: false,
+          onDisplay: false,
+          subcategoryId: 1,
+        }
+      ]
+    }]
   }]);
   const [display, setDisplay] = useState<string>('');
   const [filterName, setFilterName] = useState<string>('');
@@ -46,9 +86,8 @@ function ManageCategories() {
 
   useEffect(() => {
     loadCategories();
-  }, [])
+  }, []);
 
-  const { data } = CategoriesData;
   const handleDisplayChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
     setDisplay(event.target.value);
@@ -69,6 +108,42 @@ function ManageCategories() {
       query: { categoryId }
     }, url);
   }
+
+  const loadSubCategories = async (categoryId: number) => {
+    try {
+      startLoading();
+      const _subcategories = await CategoryService.getSubCategories(categoryId) as SubCategory[];
+      let _categories = [...categories];
+      const categoryIndex = categories.findIndex(element => element.categoryId === categoryId);
+      // _categories[categoryIndex].subCategories = _subcategories;
+      // setCategories(_categories)
+    } catch (error) {
+      console.log('error > ', error)
+    } finally {
+      stopLoading()
+    }
+  }
+
+  const loadInteriorCategories = async (subCategoryId: number, categoryId: number) => {
+    try {
+      startLoading();
+      const _interiorSubCategories = await CategoryService.getInteriorSubCategories(subCategoryId) as InteriorSubCategory[];
+      let _categories = [...categories];
+      const categoryIndex = categories.findIndex(element => element.categoryId === categoryId);
+      if (categoryIndex) {
+        const subCategoryIndex = _categories[categoryIndex].subCategories.findIndex(element => element.subcategoryId === subCategoryId);
+        // if(subCategoryIndex){
+        //   _categories[categoryId].subCategories[subCategoryIndex].interiorSubCategories = _interiorSubCategories
+        //   setCategories(_categories)
+        // }
+      }
+    } catch (error) {
+      console.log('error ', error)
+    } finally {
+      stopLoading()
+    }
+  }
+
   return (
     <Layout>
       <div className="uk-card uk-card-default uk-card-body custom-card">
@@ -174,43 +249,30 @@ function ManageCategories() {
               </div>
             </div>
           </div>
-          <table className="uk-table uk-table-divider uk-table-striped custom-table uk-margin-remove-bottom">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Display</th>
-                <th>Sort</th>
-                <th>Edit</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                categories.map((item) => (
-                  <tr key={item.categoryId}>
-                    <td >{item.categoryName}</td>
-                    <td className='uk-text-capitalize'>
-                      <span className={(!item.onDisplay ? 'red' : 'green') + '-circle'}></span>
-                      {!item.onDisplay ? 'hidden' : 'on display'}
-                    </td>
-                    <td>
 
-                    </td>
-                    <td>
-                      <button
-                        className="uk-button uk-button-link"
-                        data-uk-icon="icon: pencil"
-                        onClick={() => handleRedirect('/categories-form', item.categoryId)}
-                      />
-                    </td>
-                    <td>
-                      <Link href={'/delete/' + item.categoryId} data-uk-icon="icon: trash"></Link>
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
+          <div className="uk-grid-column-small uk-grid-row-large uk-child-width-1-5@s uk-text-center" data-uk-grid>
+            <div>
+              Name
+            </div>
+            <div>
+              Display
+            </div>
+            <div>
+              Sort
+            </div>
+            <div>
+              Edit
+            </div>
+            <div>
+              Delete
+            </div>
+          </div>
+          <CategoriesRows
+            categories={categories}
+            handleRedirect={handleRedirect}
+            loadInteriorCategories={loadInteriorCategories}
+            loadSubCategories={loadSubCategories}
+          />
         </div>
       </div>
     </Layout>
