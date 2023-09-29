@@ -16,7 +16,6 @@ export function SpinnerProvider({ children }: SpinnerProviderProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const startLoading = () => {
-    console.log('>>: start')
     setIsLoading(true);
   };
 

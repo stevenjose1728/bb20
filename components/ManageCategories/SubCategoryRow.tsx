@@ -19,6 +19,7 @@ function SubCategoryRow({ subCategories, loadInteriorCategories, handleRedirect 
         subCategories?.map(subcategory => {
           return (
             <ul
+              className='sub-categories-container'
               data-uk-accordion
               key={subcategory.subcategoryId}
             >
@@ -30,12 +31,14 @@ function SubCategoryRow({ subCategories, loadInteriorCategories, handleRedirect 
                     className="uk-grid-column-small uk-grid-row-large uk-child-width-1-5@s uk-text-center"
                     data-uk-grid
                   >
-                    <div>
+                    <p className="uk-text-small">
                       {subcategory.name}
-                    </div>
+                    </p>
                     <div className='uk-text-capitalize'>
-                      <span className={(!subcategory.onDisplay ? 'red' : 'green') + '-circle'}></span>
-                      {!subcategory.onDisplay ? 'hidden' : 'on display'}
+                      <p className="uk-text-small">
+                        <span className={(!subcategory.onDisplay ? 'red' : 'green') + '-circle'}></span>
+                        {!subcategory.onDisplay ? 'hidden' : 'on display'}
+                      </p>
                     </div>
                     <div>
 
@@ -53,7 +56,7 @@ function SubCategoryRow({ subCategories, loadInteriorCategories, handleRedirect 
                   </div>
                 </div>
                 {/* Second Child Content */}
-                <div className="uk-accordion-content">
+                <div className="uk-accordion-content interior-sub-categories-container">
                   {
                     subcategory.interiorSubCategories?.map(interiorSubCategory => {
                       return (

@@ -12,12 +12,14 @@ function InteriorSubCategoryRow({ interiorSubCategory, handleRedirect }: Props) 
       className="uk-grid-column-small uk-grid-row-large uk-child-width-1-5@s uk-text-center"
       data-uk-grid
     >
-      <div>
+      <p className="uk-text-small">
         {interiorSubCategory.name}
-      </div>
+      </p>
       <div className='uk-text-capitalize'>
-        <span className={(!interiorSubCategory.onDisplay ? 'red' : 'green') + '-circle'}></span>
-        {!interiorSubCategory.onDisplay ? 'hidden' : 'on display'}
+        <p className="uk-text-small">
+          <span className={(!interiorSubCategory.onDisplay ? 'red' : 'green') + '-circle'}></span>
+          {!interiorSubCategory.onDisplay ? 'hidden' : 'on display'}
+        </p>
       </div>
       <div>
 

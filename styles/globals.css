@@ -183,6 +183,18 @@ body {
   padding: 2% 0;
 }
 
+.custom-table .uk-accordion-title::before {
+  float: left !important;
+}
+
+.custom-table .sub-categories-container {
+  margin-left: 3%;
+}
+
+.custom-table .sub-categories-container .interior-sub-categories-container {
+  margin-left: 5%;
+}
+
 main {
   background-color: white;
 }

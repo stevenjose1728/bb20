@@ -34,12 +34,14 @@ function CategoriesRows({ categories, loadSubCategories, handleRedirect, loadInt
                     className="uk-grid-column-small uk-grid-row-large uk-child-width-1-5@s uk-text-center"
                     data-uk-grid
                   >
-                    <div>
+                    <p className="uk-text-small">
                       {element.categoryName}
-                    </div>
+                    </p>
                     <div className='uk-text-capitalize'>
-                      <span className={(!element.onDisplay ? 'red' : 'green') + '-circle'}></span>
-                      {!element.onDisplay ? 'hidden' : 'on display'}
+                      <p className="uk-text-small">
+                        <span className={(!element.onDisplay ? 'red' : 'green') + '-circle'}></span>
+                        {!element.onDisplay ? 'hidden' : 'on display'}
+                      </p>
                     </div>
                     <div>
 
