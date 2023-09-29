@@ -1,0 +1,39 @@
+import InteriorSubCategory from '@/models/InteriorSubCategory'
+import Link from 'next/link'
+import React from 'react'
+
+type Props = {
+  interiorSubCategory: InteriorSubCategory,
+  handleRedirect: (url: string, categoryId: number) => void,
+}
+function InteriorSubCategoryRow({ interiorSubCategory, handleRedirect }: Props) {
+  return (
+    <div
+      className="uk-grid-column-small uk-grid-row-large uk-child-width-1-5@s uk-text-center"
+      data-uk-grid
+    >
+      <div>
+        {interiorSubCategory.name}
+      </div>
+      <div className='uk-text-capitalize'>
+        <span className={(!interiorSubCategory.onDisplay ? 'red' : 'green') + '-circle'}></span>
+        {!interiorSubCategory.onDisplay ? 'hidden' : 'on display'}
+      </div>
+      <div>
+
+      </div>
+      <div>
+        <button
+          className="uk-button uk-button-link"
+          data-uk-icon="icon: pencil"
+          onClick={() => handleRedirect('/interior-sub-categories-form', interiorSubCategory.subcategoryId)}
+        />
+      </div>
+      <div>
+        <Link href={'/delete/' + interiorSubCategory.interiorsubcategoryId} data-uk-icon="icon: trash"></Link>
+      </div>
+    </div>
+  )
+}
+
+export default InteriorSubCategoryRow
