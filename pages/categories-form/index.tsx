@@ -5,6 +5,7 @@ import Layout from '@/components/Layout/Layout'
 import { SpinnerContext } from '@/context/SpinnerContext';
 import { CategoryService } from '@/services';
 import { Category } from '@/models/Category';
+import { useRouter } from 'next/router';
 
 type Form = {
   thumbnail: string,
@@ -40,6 +41,7 @@ function index() {
     landingPagePrettyUrl: '',
     landingPageDescriptionMetadata: ''
   }
+  const router = useRouter();
   const { startLoading, stopLoading } = useContext(SpinnerContext);
   const [categories, setCategories] = useState<Category[]>([])
   const [form, setForm] = useState<Form>(initialFormState);

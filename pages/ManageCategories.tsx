@@ -1,12 +1,20 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import CategoriesData from '@/data/CategoriesData.json'
 import Layout from '@/components/Layout/Layout'
 import Link from 'next/link'
 import { SpinnerContext } from '@/context/SpinnerContext';
+import { CategoryService } from '@/services';
+import { Category } from '@/models/Category';
+import { useRouter } from 'next/router';
 
 function ManageCategories() {
+  const router = useRouter();
   const { startLoading, stopLoading } = useContext(SpinnerContext);
-
+  const [categories, setCategories] = useState<Category[]>([{
+    categoryId: 1,
+    categoryName: 'Categoria 1',
+    onDisplay: true
+  }]);
   const [display, setDisplay] = useState<string>('');
   const [filterName, setFilterName] = useState<string>('');
   const displayOptions = [
@@ -24,6 +32,22 @@ function ManageCategories() {
     },
   ];
 
+  const loadCategories = async () => {
+    try {
+      startLoading()
+      const _categories = await CategoryService.getCategories() as Category[];
+      // setCategories(_categories);
+    } catch (error) {
+      console.log('error > ', error)
+    } finally {
+      stopLoading()
+    }
+  }
+
+  useEffect(() => {
+    loadCategories();
+  }, [])
+
   const { data } = CategoriesData;
   const handleDisplayChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
@@ -38,6 +62,12 @@ function ManageCategories() {
     setFilterName('');
     setDisplay('');
     stopLoading();
+  }
+  const handleRedirect = (url: string, categoryId: number) => {
+    router.push({
+      pathname: url,
+      query: { categoryId }
+    }, url);
   }
   return (
     <Layout>
@@ -156,21 +186,25 @@ function ManageCategories() {
             </thead>
             <tbody>
               {
-                data.map((item) => (
-                  <tr key={item.id}>
-                    <td >{item.name}</td>
+                categories.map((item) => (
+                  <tr key={item.categoryId}>
+                    <td >{item.categoryName}</td>
                     <td className='uk-text-capitalize'>
-                      <span className={(item.display === 'hidden' ? 'red' : 'green') + '-circle'}></span>
-                      {item.display}
+                      <span className={(!item.onDisplay ? 'red' : 'green') + '-circle'}></span>
+                      {!item.onDisplay ? 'hidden' : 'on display'}
                     </td>
                     <td>
 
                     </td>
                     <td>
-                      <Link href={'/edit/' + item.id} data-uk-icon="icon: pencil"></Link>
+                      <button
+                        className="uk-button uk-button-link"
+                        data-uk-icon="icon: pencil"
+                        onClick={() => handleRedirect('/categories-form', item.categoryId)}
+                      />
                     </td>
                     <td>
-                      <Link href={'/delete/' + item.id} data-uk-icon="icon: trash"></Link>
+                      <Link href={'/delete/' + item.categoryId} data-uk-icon="icon: trash"></Link>
                     </td>
                   </tr>
                 ))
