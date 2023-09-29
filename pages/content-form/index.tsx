@@ -1,10 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import Layout from '@/components/Layout/Layout'
 import { useRouter } from 'next/router'
 import ImageUploader from '@/components/ImageUploader'
 import dynamic from 'next/dynamic';
 
 const CKEditor = dynamic(() => import('@/components/CKEditor'), { ssr: false });
+
+type AssociatedFile = {
+  file: string,
+  showTerms: boolean,
+  title: string
+}
+
+type CustomLink = {
+  url: string,
+  title: string
+}
 type Form = {
   title: string,
   prettyUrl: string,
@@ -24,7 +35,9 @@ type Form = {
   secondImage: string,
   spanImageAcross: boolean,
   alignLeft: boolean,
-  alignRight: boolean
+  alignRight: boolean,
+  associatedFiles: AssociatedFile[],
+  links: CustomLink[]
 }
 function index() {
   const initialStateForm: Form = {
@@ -46,12 +59,15 @@ function index() {
     secondImage: '',
     spanImageAcross: false,
     alignLeft: false,
-    alignRight: false
+    alignRight: false,
+    associatedFiles: [],
+    links: []
   }
   const router = useRouter();
   const [form, setForm] = useState<Form>(initialStateForm);
   const [editorLoaded, setEditorLoaded] = useState(false);
   const filesCount = 5;
+  const linksCount = 3;
   const handleFormChange = (value: string | boolean, key: keyof Form) => {
     setForm({
       ...form,
@@ -69,6 +85,86 @@ function index() {
       })
     }
   };
+
+
+  const AssociatedFiles = useMemo((): JSX.Element => {
+    const files: React.JSX.Element[] = []
+    for (let index = 0; index < filesCount; index++) {
+      const element = <div
+        data-uk-grid
+        className='uk-child-width-1-3'
+      >
+        <div
+          className="uk-margin"
+        >
+          <div
+            data-uk-form-custom
+          >
+            <input
+              type="file"
+            />
+            <button className="uk-button uk-button-secondary uk-text-uppercase" type="button">No file selected</button>
+          </div>
+        </div>
+        <div>
+          <input className="uk-checkbox" type="checkbox" readOnly />
+        </div>
+        <div>
+          <input className="uk-input" type="text" readOnly />
+        </div>
+      </div>
+      files.push(element)
+    }
+
+    return <>
+      {
+        files.map(element => element)
+      }
+    </>
+  }, []);
+
+  const LinksCustom = useMemo((): JSX.Element => {
+    const files: React.JSX.Element[] = []
+    for (let index = 0; index < linksCount; index++) {
+      const element = <div
+        data-uk-grid
+        className='uk-child-width-1-2'
+      >
+        <div className="">
+          <label className="uk-form-label uk-text-bold" htmlFor="form-title">
+            Link {index + 1} URL
+          </label>
+          <div className="uk-form-controls">
+            <input
+              className="uk-input"
+              id="form-title"
+              type="text"
+            />
+          </div>
+        </div>
+        <div className="">
+          <label className="uk-form-label uk-text-bold" htmlFor="form-title">
+            Link title {index + 1}
+          </label>
+          <div className="uk-form-controls">
+            <input
+              className="uk-input"
+              id="form-title"
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      files.push(element)
+    }
+
+    return <>
+      {
+        files.map(element => element)
+      }
+    </>
+  }, []);
+
   return (
     <Layout>
       <div
@@ -341,9 +437,30 @@ function index() {
                         Align Right
                       </label>
                     </div>
-
-
-
+                    <div>
+                      <div
+                        data-uk-grid
+                        className='uk-child-width-1-3 uk-margin-top'
+                      >
+                        <div>
+                          <p className="uk-text-bold">Select Associated Files</p>
+                        </div>
+                        <div>
+                          <p className="uk-text-bold">
+                            Show Terms of use
+                          </p>
+                        </div>
+                        <div>
+                          <p className="uk-text-bold">
+                            Associated File Title
+                          </p>
+                        </div>
+                      </div>
+                      {AssociatedFiles}
+                    </div>
+                    <div>
+                      {LinksCustom}
+                    </div>
                   </div>
                 </div>
               </div>
