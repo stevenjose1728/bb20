@@ -102,10 +102,10 @@ function ManageCategories() {
     setDisplay('');
     stopLoading();
   }
-  const handleRedirect = (url: string, categoryId: number) => {
+  const handleRedirect = (url: string, params: object) => {
     router.push({
       pathname: url,
-      query: { categoryId }
+      query: { ...params }
     }, url);
   }
 
@@ -223,28 +223,26 @@ function ManageCategories() {
                 </div>
                 <div
                 >
-                  <div
-                    data-uk-icon="icon: plus"
-                  ></div>
-                  <Link
-                    href="/categories-form"
-                    className="uk-button uk-button-text"
-                    onClick={() => handleResetForm()}
+                  <button
+                    className="uk-button uk-button-link"
+                    onClick={() => handleRedirect('/categories-form', {})}
                   >
+                    <div
+                      data-uk-icon="icon: plus"
+                    ></div>
                     New Sub Category
-                  </Link>
+                  </button>
                 </div>
                 <div>
-                  <div
-                    data-uk-icon="icon: plus"
-                  ></div>
-                  <Link
-                    href="/categories-form"
-                    className="uk-button uk-button-text"
-                    onClick={() => handleResetForm()}
+                  <button
+                    className="uk-button uk-button-link"
+                    onClick={() => handleRedirect('/categories-form', { interiorSubCategory: true })}
                   >
-                    New Interior Category
-                  </Link>
+                    <div
+                      data-uk-icon="icon: plus"
+                    ></div>
+                    New Interior Sub Category
+                  </button>
                 </div>
               </div>
             </div>
