@@ -177,6 +177,12 @@ body {
   margin-right: 5px;
 }
 
+.custom-table .custom-table-header {
+  background-color: #606060;
+  color: white;
+  padding: 2% 0;
+}
+
 main {
   background-color: white;
 }

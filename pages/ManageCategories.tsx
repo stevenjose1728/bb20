@@ -151,7 +151,7 @@ function ManageCategories() {
           <div className="uk-card-header">
             <div className="uk-grid-small uk-flex-middle" data-uk-grid>
               <div className="uk-width-expand">
-                <h4 className="uk-card-title uk-margin-remove-bottom uk-text-uppercase uk-text-center">Manage Content</h4>
+                <h4 className="uk-card-title uk-margin-remove-bottom uk-text-uppercase uk-text-center">manage content categories</h4>
               </div>
             </div>
           </div>
@@ -249,30 +249,31 @@ function ManageCategories() {
               </div>
             </div>
           </div>
-
-          <div className="uk-grid-column-small uk-grid-row-large uk-child-width-1-5@s uk-text-center" data-uk-grid>
-            <div>
-              Name
+          <div className="uk-container custom-table">
+            <div className="uk-grid-column-small uk-grid-row-large uk-child-width-1-5@s uk-text-center custom-table-header" data-uk-grid>
+              <div>
+                Name
+              </div>
+              <div>
+                Display
+              </div>
+              <div>
+                Sort
+              </div>
+              <div>
+                Edit
+              </div>
+              <div>
+                Delete
+              </div>
             </div>
-            <div>
-              Display
-            </div>
-            <div>
-              Sort
-            </div>
-            <div>
-              Edit
-            </div>
-            <div>
-              Delete
-            </div>
+            <CategoriesRows
+              categories={categories}
+              handleRedirect={handleRedirect}
+              loadInteriorCategories={loadInteriorCategories}
+              loadSubCategories={loadSubCategories}
+            />
           </div>
-          <CategoriesRows
-            categories={categories}
-            handleRedirect={handleRedirect}
-            loadInteriorCategories={loadInteriorCategories}
-            loadSubCategories={loadSubCategories}
-          />
         </div>
       </div>
     </Layout>

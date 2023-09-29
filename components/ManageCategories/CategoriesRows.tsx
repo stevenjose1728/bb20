@@ -26,7 +26,6 @@ function CategoriesRows({ categories, loadSubCategories, handleRedirect, loadInt
           categories.map(element => {
             return (
               <li
-                className="uk-open"
                 key={element.categoryId}
                 onClick={() => loadSubCategories(element.categoryId)}
               >
