@@ -191,6 +191,11 @@ body {
   margin-left: 3%;
 }
 
+.custom-table .sub-categories-container .uk-accordion-title {
+  border: solid 1px #606060;
+  background-color: #d5d5d5;
+}
+
 .custom-table .sub-categories-container .interior-sub-categories-container {
   margin-left: 5%;
 }
