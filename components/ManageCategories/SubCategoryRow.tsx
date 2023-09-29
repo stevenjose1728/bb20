@@ -9,7 +9,7 @@ type Props = {
   subCategories: Array<SubCategory & {
     interiorSubCategories?: InteriorSubCategory[]
   }>,
-  handleRedirect: (url: string, categoryId: number) => void,
+  handleRedirect: (url: string, params: object) => void,
   loadInteriorCategories: (subCategoryId: number, categoryId: number) => void
 }
 function SubCategoryRow({ subCategories, loadInteriorCategories, handleRedirect }: Props) {
@@ -47,7 +47,7 @@ function SubCategoryRow({ subCategories, loadInteriorCategories, handleRedirect 
                       <button
                         className="uk-button uk-button-link"
                         data-uk-icon="icon: pencil"
-                        onClick={() => handleRedirect('/categories-form', subcategory.subcategoryId)}
+                        onClick={() => handleRedirect('/categories-form', { categoryId: subcategory.subcategoryId })}
                       />
                     </div>
                     <div>

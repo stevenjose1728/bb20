@@ -15,7 +15,7 @@ type Categories = Category & {
 type Props = {
   categories: Categories[],
   loadSubCategories: (categoryId: number) => void,
-  handleRedirect: (url: string, categoryId: number) => void,
+  handleRedirect: (url: string, params: object) => void,
   loadInteriorCategories: (subCategoryId: number, categoryId: number) => void
 }
 function CategoriesRows({ categories, loadSubCategories, handleRedirect, loadInteriorCategories }: Props) {
@@ -50,7 +50,7 @@ function CategoriesRows({ categories, loadSubCategories, handleRedirect, loadInt
                       <button
                         className="uk-button uk-button-link"
                         data-uk-icon="icon: pencil"
-                        onClick={() => handleRedirect('/categories-form', element.categoryId)}
+                        onClick={() => handleRedirect('/categories-form', { categoryId: element.categoryId })}
                       />
                     </div>
                     <div>

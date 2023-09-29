@@ -4,7 +4,7 @@ import React from 'react'
 
 type Props = {
   interiorSubCategory: InteriorSubCategory,
-  handleRedirect: (url: string, categoryId: number) => void,
+  handleRedirect: (url: string, params: object) => void,
 }
 function InteriorSubCategoryRow({ interiorSubCategory, handleRedirect }: Props) {
   return (
@@ -28,7 +28,7 @@ function InteriorSubCategoryRow({ interiorSubCategory, handleRedirect }: Props) 
         <button
           className="uk-button uk-button-link"
           data-uk-icon="icon: pencil"
-          onClick={() => handleRedirect('/interior-sub-categories-form', interiorSubCategory.subcategoryId)}
+          onClick={() => handleRedirect('/interior-sub-categories-form', { categoryId: interiorSubCategory.subcategoryId })}
         />
       </div>
       <div>
