@@ -80,29 +80,65 @@ function index() {
       <div
         className='uk-padding'
       >
-        <h2>Create/Edit Categories</h2>
-        <div className="uk-margin uk-width-1-4">
-          <label className="uk-form-label" htmlFor="form-categories">Categories</label>
-          <div className="uk-form-controls">
-            <select
-              className="uk-select"
-              id="form-categories"
-              value={form.category || ''}
-              onChange={e => handleFormChange(e.target.value, 'category')}
-            >
-              {
-                categories.map(element => {
-                  return (
-                    <option
-                      value={element.categoryId}
-                    >
-                      {element.categoryName}
-                    </option>
-                  )
-                })
-              }
-            </select>
+        <h2>
+          Create/Edit
+          {
+            !!router.query.interiorSubCategory ? ' Interior Sub Category' : ' Sub Category'
+          }
+        </h2>
+        <div
+          data-uk-grid
+        >
+          <div className="uk-width-1-2">
+            <label className="uk-form-label" htmlFor="form-categories">Categories</label>
+            <div className="uk-form-controls">
+              <select
+                className="uk-select"
+                id="form-categories"
+                value={form.category || ''}
+                onChange={e => handleFormChange(e.target.value, 'category')}
+              >
+                {
+                  categories.map(element => {
+                    return (
+                      <option
+                        value={element.categoryId}
+                      >
+                        {element.categoryName}
+                      </option>
+                    )
+                  })
+                }
+              </select>
+            </div>
           </div>
+          {
+            !!router.query.interiorSubCategory && (
+              <div className="uk-width-1-2">
+                <label className="uk-form-label" htmlFor="form-categories">Sub Category</label>
+                <div className="uk-form-controls">
+                  <select
+                    className="uk-select"
+                    id="form-categories"
+                    value={form.category || ''}
+                    onChange={e => handleFormChange(e.target.value, 'category')}
+                  >
+                    {
+                      categories.map(element => {
+                        return (
+                          <option
+                            value={element.categoryId}
+                          >
+                            {element.categoryName}
+                          </option>
+                        )
+                      })
+                    }
+                  </select>
+                </div>
+              </div>
+            )
+          }
         </div>
         <div data-uk-grid>
           <div className="uk-margin uk-grid-small uk-child-width-auto uk-grid">
