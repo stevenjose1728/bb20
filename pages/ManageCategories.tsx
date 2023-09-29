@@ -241,7 +241,7 @@ function ManageCategories() {
                     <div
                       data-uk-icon="icon: plus"
                     ></div>
-                    New Interior Sub Category
+                    New Interior Category
                   </button>
                 </div>
               </div>
