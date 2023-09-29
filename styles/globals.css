@@ -148,6 +148,11 @@ body {
   color: white;
 }
 
+.main-layout {
+  overflow: auto;
+  height: 100%;
+}
+
 .red-circle {
   height: 13px;
   width: 13px;
