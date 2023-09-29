@@ -2,9 +2,11 @@ import React, { useState, useRef, ChangeEvent } from 'react';
 
 interface ImageUploaderProps {
   onImageUpload: (base64Image: string | null) => void;
+  title: string,
+  subtitle: string
 }
 
-const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload }) => {
+const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload, title, subtitle }) => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -31,7 +33,10 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload }) => {
         style={{ display: 'none' }}
         ref={(input) => (fileInputRef.current = input)}
       />
-      <p className='uk-text-bold'>Select Thumbnail <span className='uk-text-small uk-text-light'>Thumbnail is only used on category landing pages.</span></p>
+      <p className='uk-text-bold'>
+        {title}
+        <span className='uk-text-small uk-text-light'> {subtitle} </span>
+      </p>
       <div>
         <img
           src={previewImage || '/default-image.jpg'}

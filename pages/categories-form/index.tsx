@@ -186,7 +186,11 @@ function index() {
             />
           </div>
         </div>
-        <ImageUploader onImageUpload={handleImageUpload} />
+        <ImageUploader
+          onImageUpload={handleImageUpload}
+          title='Select Thumbnail'
+          subtitle='Thumbnail is only used on category landing pages.'
+        />
         <p className="uk-text-bold uk-text-capitalize uk-margin-remove-left uk-padding-remove-left uk-margin-remove-bottom">Main Category Landing Page Description</p>
         <div className="uk-padding">
           <CKEditor
