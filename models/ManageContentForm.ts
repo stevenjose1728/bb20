@@ -28,7 +28,14 @@ type Form = {
   autoStartVideo: boolean,
   loopVideo: boolean,
   videoContentImage: string,
-  videoCaption: string
+  videoCaption: string,
+  audioArtist: string,
+  audioArtistTwo: string,
+  hideAudioTitleAndArtistInformation: boolean,
+  autoStartAudio: boolean,
+  loopAudio: boolean,
+  displayAnimation: boolean,
+  initialVolume: number
 }
 
 export default Form

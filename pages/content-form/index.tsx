@@ -3,6 +3,7 @@ import Layout from '@/components/Layout/Layout'
 import GeneralCard from '@/components/ManageContent/GeneralCard';
 import Form from '@/models/ManageContentForm';
 import VideoCard from '@/components/ManageContent/VideoCard';
+import AudioCard from '@/components/ManageContent/AudioCard';
 
 function index() {
   const initialStateForm: Form = {
@@ -32,7 +33,14 @@ function index() {
     autoStartVideo: false,
     loopVideo: false,
     videoContentImage: '',
-    videoCaption: ''
+    videoCaption: '',
+    audioArtist: '',
+    audioArtistTwo: '',
+    hideAudioTitleAndArtistInformation: false,
+    autoStartAudio: false,
+    loopAudio: false,
+    displayAnimation: false,
+    initialVolume: 100
   }
   const [form, setForm] = useState<Form>(initialStateForm);
   const handleFormChange = (value: string | boolean, key: keyof Form) => {
@@ -64,6 +72,11 @@ function index() {
             handleImageUpload={handleImageUpload}
           />
           <VideoCard
+            handleFormChange={handleFormChange}
+            handleImageUpload={handleImageUpload}
+            form={form}
+          />
+          <AudioCard
             handleFormChange={handleFormChange}
             handleImageUpload={handleImageUpload}
             form={form}
