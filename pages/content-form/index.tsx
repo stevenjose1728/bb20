@@ -5,6 +5,7 @@ import Form from '@/models/ManageContentForm';
 import VideoCard from '@/components/ManageContent/VideoCard';
 import AudioCard from '@/components/ManageContent/AudioCard';
 import DisplayOptionsCard from '@/components/ManageContent/DisplayOptionsCard';
+import { DisplayItemOptions, DisplayOptionsPostType, Featured } from '@/models/DisplayOptionsEnum';
 
 function index() {
   const initialStateForm: Form = {
@@ -41,7 +42,17 @@ function index() {
     autoStartAudio: false,
     loopAudio: false,
     displayAnimation: false,
-    initialVolume: 100
+    initialVolume: 100,
+    displayOptionShowComment: false,
+    displayOptionNoNewComments: false,
+    categories: [],
+    displayItem: DisplayItemOptions.hide,
+    homePage: Featured.notFeatured,
+    categoryLandingPage: Featured.notFeatured,
+    unlockedPost: false,
+    enableMlsSearch: false,
+    packageTemplate: false,
+    postType: DisplayOptionsPostType.template
   }
   const [form, setForm] = useState<Form>(initialStateForm);
   const handleFormChange = (value: string | boolean, key: keyof Form) => {
