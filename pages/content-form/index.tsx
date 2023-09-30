@@ -4,6 +4,7 @@ import GeneralCard from '@/components/ManageContent/GeneralCard';
 import Form from '@/models/ManageContentForm';
 import VideoCard from '@/components/ManageContent/VideoCard';
 import AudioCard from '@/components/ManageContent/AudioCard';
+import DisplayOptionsCard from '@/components/ManageContent/DisplayOptionsCard';
 
 function index() {
   const initialStateForm: Form = {
@@ -78,7 +79,10 @@ function index() {
           />
           <AudioCard
             handleFormChange={handleFormChange}
-            handleImageUpload={handleImageUpload}
+            form={form}
+          />
+          <DisplayOptionsCard
+            handleFormChange={handleFormChange}
             form={form}
           />
         </ul>

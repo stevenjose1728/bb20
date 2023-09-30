@@ -3,10 +3,9 @@ import React from 'react'
 
 type Props = {
   handleFormChange: (value: string | boolean, key: keyof Form) => void,
-  form: Form,
-  handleImageUpload: (thumbnail: string | null, key: keyof Form) => void
+  form: Form
 }
-function AudioCard({ handleFormChange, form, handleImageUpload }: Props) {
+function AudioCard({ handleFormChange, form }: Props) {
   return (
     <li
     >
