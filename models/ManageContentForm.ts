@@ -1,5 +1,7 @@
 import AssociatedFile from "./AssociatedFile"
 import CustomLink from "./CustomLink"
+import { DisplayItemOptions, DisplayOptionsPostType, Featured } from "./DisplayOptionsEnum"
+import CategoryForm from "./ManageContentCategoriesForm"
 
 type Form = {
   title: string,
@@ -23,12 +25,18 @@ type Form = {
   alignRight: boolean,
   associatedFiles: AssociatedFile[],
   links: CustomLink[],
+  /**
+   * Video
+   */
   videoWidth: string,
   videoHeight: string,
   autoStartVideo: boolean,
   loopVideo: boolean,
   videoContentImage: string,
   videoCaption: string,
+  /**
+   * Audio
+   */
   audioArtist: string,
   audioArtistTwo: string,
   hideAudioTitleAndArtistInformation: boolean,
@@ -36,6 +44,19 @@ type Form = {
   loopAudio: boolean,
   displayAnimation: boolean,
   initialVolume: number
+  /**
+   * Display Options
+   */
+  displayOptionShowComment: boolean,
+  displayOptionNoNewComments: boolean,
+  categories: CategoryForm[],
+  displayItem: DisplayItemOptions.display | DisplayItemOptions.hide | DisplayItemOptions.withInDateRange,
+  homePage: Featured.featured | Featured.notFeatured | Featured.withInDateRange
+  categoryLandingPage: Featured.featured | Featured.notFeatured | Featured.withInDateRange
+  unlockedPost: boolean,
+  enableMlsSearch: boolean,
+  packageTemplate: boolean,
+  postType: DisplayOptionsPostType.externalUrl | DisplayOptionsPostType.page | DisplayOptionsPostType.staticDocument | DisplayOptionsPostType.template
 }
 
 export default Form
