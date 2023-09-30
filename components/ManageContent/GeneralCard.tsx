@@ -22,6 +22,7 @@ function GeneralCard({ handleFormChange, form, handleImageUpload }: Props) {
     for (let index = 0; index < filesCount; index++) {
       const element = <div
         data-uk-grid
+        key={index}
         className='uk-child-width-1-3'
       >
         <div
@@ -58,6 +59,7 @@ function GeneralCard({ handleFormChange, form, handleImageUpload }: Props) {
     for (let index = 0; index < linksCount; index++) {
       const element = <div
         data-uk-grid
+        key={index}
         className='uk-child-width-1-2'
       >
         <div className="">

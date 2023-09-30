@@ -1,12 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import Layout from '@/components/Layout/Layout'
-import { useRouter } from 'next/router'
-import ImageUploader from '@/components/ImageUploader'
-import dynamic from 'next/dynamic';
 import GeneralCard from '@/components/ManageContent/GeneralCard';
 import Form from '@/models/ManageContentForm';
+import VideoCard from '@/components/ManageContent/VideoCard';
 
-const CKEditor = dynamic(() => import('@/components/CKEditor'), { ssr: false });
 function index() {
   const initialStateForm: Form = {
     title: '',
@@ -29,7 +26,13 @@ function index() {
     alignLeft: false,
     alignRight: false,
     associatedFiles: [],
-    links: []
+    links: [],
+    videoWidth: '',
+    videoHeight: '',
+    autoStartVideo: false,
+    loopVideo: false,
+    videoContentImage: '',
+    videoCaption: ''
   }
   const [form, setForm] = useState<Form>(initialStateForm);
   const handleFormChange = (value: string | boolean, key: keyof Form) => {
@@ -56,9 +59,14 @@ function index() {
         </h2>
         <ul data-uk-accordion>
           <GeneralCard
-            handleFormChange={handleFormChange}
             form={form}
+            handleFormChange={handleFormChange}
             handleImageUpload={handleImageUpload}
+          />
+          <VideoCard
+            handleFormChange={handleFormChange}
+            handleImageUpload={handleImageUpload}
+            form={form}
           />
         </ul>
       </div>

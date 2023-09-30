@@ -33,7 +33,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload, title, sub
         style={{ display: 'none' }}
         ref={(input) => (fileInputRef.current = input)}
       />
-      <p className='uk-text-bold'>
+      <p className='uk-text-bold uk-text-capitalize'>
         {title}
         <span className='uk-text-small uk-text-light'> {subtitle} </span>
       </p>

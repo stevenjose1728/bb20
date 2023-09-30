@@ -22,7 +22,13 @@ type Form = {
   alignLeft: boolean,
   alignRight: boolean,
   associatedFiles: AssociatedFile[],
-  links: CustomLink[]
+  links: CustomLink[],
+  videoWidth: string,
+  videoHeight: string,
+  autoStartVideo: boolean,
+  loopVideo: boolean,
+  videoContentImage: string,
+  videoCaption: string
 }
 
 export default Form
