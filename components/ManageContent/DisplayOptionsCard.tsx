@@ -15,9 +15,10 @@ type Props = {
     categories: typeof categories,
     subCategories: typeof subCategories,
     interiorSubCategories: typeof interiorSubCategories
-  }
+  },
+  handleRemoveCategory: (index: number) => void
 }
-function DisplayOptionsCard({ form, handleFormChange, addCategory, handleCategoriesFormChange, memoCategories }: Props) {
+function DisplayOptionsCard({ form, handleFormChange, addCategory, handleCategoriesFormChange, memoCategories, handleRemoveCategory }: Props) {
   return (
     <li
     >
@@ -157,6 +158,17 @@ function DisplayOptionsCard({ form, handleFormChange, addCategory, handleCategor
                         <span className={(element.onDisplay === DisplayOptions.HIDDEN ? 'red' : 'green') + '-circle'}></span>
                         {element.onDisplay}
                       </button>
+                      {
+                        form.categories.length > 1 && (
+                          <button
+                            className="uk-button uk-button-text uk-button-small"
+                            data-uk-icon="icon: trash"
+                            onClick={() => handleRemoveCategory(i)}
+                          >
+
+                          </button>
+                        )
+                      }
                     </div>
                   </div>
                 </div>

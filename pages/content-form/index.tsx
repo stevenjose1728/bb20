@@ -86,7 +86,14 @@ function index() {
       categories: _categories
     });
   };
-
+  const handleRemoveCategory = (index: number) => {
+    let _categories = [...form.categories];
+    _categories.splice(index, 1)
+    setForm({
+      ...form,
+      categories: _categories
+    })
+  }
   const handleCategoriesFormChange = (value: number | string, key: keyof CategoryForm, index: number) => {
     let _categories = [...form.categories];
     let categoryForm: CategoryForm = {
@@ -98,7 +105,6 @@ function index() {
       categoryForm.interiorSubCategory = null
     }
     _categories[index] = categoryForm;
-    console.log(_categories)
     setForm({
       ...form,
       categories: _categories
@@ -151,6 +157,7 @@ function index() {
             addCategory={addCategory}
             handleCategoriesFormChange={handleCategoriesFormChange}
             memoCategories={memoCategories}
+            handleRemoveCategory={handleRemoveCategory}
           />
         </ul>
       </div>
