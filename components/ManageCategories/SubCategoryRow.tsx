@@ -47,7 +47,7 @@ function SubCategoryRow({ subCategories, loadInteriorCategories, handleRedirect 
                       <button
                         className="uk-button uk-button-link"
                         data-uk-icon="icon: pencil"
-                        onClick={() => handleRedirect('/categories-form', { categoryId: subcategory.subcategoryId })}
+                        onClick={() => handleRedirect('/categories-form', { categoryId: subcategory.categoryId, subCategoryId: subcategory.subcategoryId })}
                       />
                     </div>
                     <div>

@@ -28,7 +28,7 @@ function InteriorSubCategoryRow({ interiorSubCategory, handleRedirect }: Props) 
         <button
           className="uk-button uk-button-link"
           data-uk-icon="icon: pencil"
-          onClick={() => handleRedirect('/interior-sub-categories-form', { categoryId: interiorSubCategory.subcategoryId })}
+          onClick={() => handleRedirect('/categories-form', { interiorSubCategory: interiorSubCategory.interiorsubcategoryId, subCategoryId: interiorSubCategory.subcategoryId })}
         />
       </div>
       <div>
