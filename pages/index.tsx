@@ -26,16 +26,16 @@ function indexPage() {
   const tableRows = ['Title', 'Category', 'Display', 'Unlocked', 'Edit', 'Delete']
   const displayOptions = [
     {
-      label: 'Display...',
+      label: '',
       value: ''
     },
     {
-      label: 'on display',
-      value: 'on display',
+      label: DisplayItemOptions.display,
+      value: DisplayItemOptions.display,
     },
     {
-      label: 'hidden',
-      value: 'hidden',
+      label: DisplayItemOptions.hide,
+      value: DisplayItemOptions.hide,
     },
   ];
   const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -43,7 +43,7 @@ function indexPage() {
     const concatFilter = event.target.name === 'category' ? emptyCategoryFilter : categoryFilter
     const _categoryFilter = {
       ...concatFilter,
-      [event.target.name]: parseInt(event.target.value)
+      [event.target.name]: event.target.value ? parseInt(event.target.value) : null
     }
     setCategoryFilter(_categoryFilter);
   }
@@ -56,6 +56,10 @@ function indexPage() {
     setFilterName('');
     setDisplay('');
     stopLoading();
+  }
+
+  const handleDisplayOption = (value: string) => {
+    setDisplay(value)
   }
   const memoSubCategories = useMemo(() => {
     let _subCategories: typeof subCategoriesData = [];
@@ -90,6 +94,30 @@ function indexPage() {
       }
     }, '/content-form');
   }
+
+  const memoContentData = useMemo(() => {
+    let _contentData = contentData;
+    if (display) {
+      _contentData = _contentData.filter(element => element.displayItem === display);
+    }
+    if (filterName) {
+      _contentData = _contentData.filter(element => element.title.toLowerCase().includes(filterName.toLowerCase()));
+    }
+
+    if (categoryFilter) {
+      if (categoryFilter.category) {
+        _contentData = _contentData.filter(element => element.categories.some(category => category.category === categoryFilter.category))
+      }
+      if (categoryFilter.subCategory) {
+        _contentData = _contentData.filter(element => element.categories.some(category => category.subCategory === categoryFilter.subCategory))
+      }
+      if (categoryFilter.interiorSubCategory) {
+        _contentData = _contentData.filter(element => element.categories.some(category => category.interiorSubCategory === categoryFilter.interiorSubCategory))
+      }
+    }
+
+    return _contentData
+  }, [display, filterName, categoryFilter])
   return (
     <Layout>
       <div className="uk-card uk-card-default uk-card-body custom-card">
@@ -110,7 +138,7 @@ function indexPage() {
                     id="displaySelect"
                     value={display}
                     className='uk-text-capitalize uk-select'
-                    onChange={handleCategoryChange}
+                    onChange={e => handleDisplayOption(e.target.value)}
                   >
                     {
                       displayOptions.map(element => {
@@ -280,7 +308,7 @@ function indexPage() {
             </thead>
             <tbody>
               {
-                contentData.map((item) => (
+                memoContentData.map((item) => (
                   <tr key={item.id}>
                     <td >{item.title}</td>
                     <td>{getItemCategories(item)} </td>
