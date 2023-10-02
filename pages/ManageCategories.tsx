@@ -276,6 +276,7 @@ function ManageCategories() {
                 Delete
               </div>
             </div>
+
             <CategoriesRows
               categories={memoContentData}
               handleRedirect={handleRedirect}
