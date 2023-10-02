@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import Layout from '@/components/Layout/Layout'
 import GeneralCard from '@/components/ManageContent/GeneralCard';
 import Form from '@/models/ManageContentForm';
@@ -6,8 +6,18 @@ import VideoCard from '@/components/ManageContent/VideoCard';
 import AudioCard from '@/components/ManageContent/AudioCard';
 import DisplayOptionsCard from '@/components/ManageContent/DisplayOptionsCard';
 import { DisplayItemOptions, DisplayOptionsPostType, Featured } from '@/models/DisplayOptionsEnum';
+import CategoryForm from '@/models/ManageContentCategoriesForm';
+import CategoriesData from '@/data/CategoriesData.json';
+import { DisplayOptions } from '@/models/DisplayEnum';
 
 function index() {
+  const defaultCategoryForm: CategoryForm = {
+    category: 1,
+    subCategory: 2,
+    interiorSubCategory: 2,
+    onDisplay: DisplayOptions.DISPLAY
+  }
+  const { data: categories, subCategories, interiorSubCategories } = CategoriesData
   const initialStateForm: Form = {
     title: '',
     prettyUrl: '',
@@ -69,6 +79,49 @@ function index() {
       })
     }
   };
+  const addCategory = () => {
+    const _categories = [...form.categories, defaultCategoryForm]
+    setForm({
+      ...form,
+      categories: _categories
+    });
+  };
+
+  const handleCategoriesFormChange = (value: number | string, key: keyof CategoryForm, index: number) => {
+    let _categories = [...form.categories];
+    let categoryForm: CategoryForm = {
+      ..._categories[index],
+      [key]: value
+    };
+    if (key === 'category') {
+      categoryForm.subCategory = null
+      categoryForm.interiorSubCategory = null
+    }
+    _categories[index] = categoryForm;
+    console.log(_categories)
+    setForm({
+      ...form,
+      categories: _categories
+    })
+  }
+  const memoCategories = useCallback((index: number) => {
+    const categoryForm: CategoryForm = form.categories[index];
+    let _categories = [...categories];
+    let _subCategories = [...subCategories];
+    let _interiorSubCategories = [...interiorSubCategories];
+    if (categoryForm?.category) {
+      _subCategories = _subCategories.filter(element => element.category_id === categoryForm.category);
+      if (categoryForm?.subCategory) {
+        _interiorSubCategories = _interiorSubCategories.filter(element => element.sub_category_id === categoryForm.subCategory);
+      }
+    }
+    return {
+      categories: _categories,
+      subCategories: _subCategories,
+      interiorSubCategories: _interiorSubCategories
+    }
+  }, [form.categories]);
+
   return (
     <Layout>
       <div
@@ -95,6 +148,9 @@ function index() {
           <DisplayOptionsCard
             handleFormChange={handleFormChange}
             form={form}
+            addCategory={addCategory}
+            handleCategoriesFormChange={handleCategoriesFormChange}
+            memoCategories={memoCategories}
           />
         </ul>
       </div>

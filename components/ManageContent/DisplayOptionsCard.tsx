@@ -1,12 +1,23 @@
 import { DisplayItemOptions, DisplayOptionsPostType, Featured } from '@/models/DisplayOptionsEnum'
+import CategoryForm from '@/models/ManageContentCategoriesForm'
 import Form from '@/models/ManageContentForm'
 import React from 'react'
+import CategoriesData from '@/data/CategoriesData.json';
+import { DisplayOptions } from '@/models/DisplayEnum';
 
+const { data: categories, subCategories, interiorSubCategories } = CategoriesData
 type Props = {
   handleFormChange: (value: string | boolean, key: keyof Form) => void,
   form: Form,
+  addCategory: () => void
+  handleCategoriesFormChange: (value: string | number, key: keyof CategoryForm, index: number) => void,
+  memoCategories: (index: number) => {
+    categories: typeof categories,
+    subCategories: typeof subCategories,
+    interiorSubCategories: typeof interiorSubCategories
+  }
 }
-function DisplayOptionsCard({ form, handleFormChange }: Props) {
+function DisplayOptionsCard({ form, handleFormChange, addCategory, handleCategoriesFormChange, memoCategories }: Props) {
   return (
     <li
     >
@@ -49,7 +60,116 @@ function DisplayOptionsCard({ form, handleFormChange }: Props) {
           </label>
         </div>
         <div className="separator"></div>
-        categories
+        <div className="categories-container">
+          <h5 className="uk-text-bold">
+            Select Category
+            <span className='uk-margin-small-left uk-text-danger'>*</span>
+          </h5>
+          {
+            form.categories.map((element, i) => {
+              return (
+                <div
+                  className="uk-grid-column-small uk-grid-row-large uk-child-width-1-4@s uk-text-center uk-margin-remove-top uk-margin-top-small"
+                  data-uk-grid
+                  key={i}
+                >
+                  <div className="">
+                    <label className="uk-form-label" htmlFor="form-stacked-select">Category</label>
+                    <div className="uk-form-controls">
+                      <select
+                        className="uk-select"
+                        id="form-stacked-select"
+                        value={element.category}
+                        onChange={e => handleCategoriesFormChange(parseInt(e.target.value), 'category', i)}
+                      >
+                        {
+                          memoCategories(i).categories?.map(category => {
+                            return (
+                              <option
+                                value={category.id}
+                                key={category.id}
+                              >
+                                {category.name}
+                              </option>
+                            )
+                          })
+                        }
+                      </select>
+                    </div>
+                  </div>
+                  <div className="">
+                    <label className="uk-form-label" htmlFor="form-stacked-select-sub-category">Sub-Category</label>
+                    <div className="uk-form-controls">
+                      <select
+                        className="uk-select"
+                        id="form-stacked-select-sub-category"
+                        onChange={e => handleCategoriesFormChange(parseInt(e.target.value), 'subCategory', i)}
+                        disabled={!element.category || !memoCategories(i).subCategories.length}
+                      >
+                        {
+                          memoCategories(i).subCategories?.map(category => {
+                            return (
+                              <option
+                                key={category.id}
+                                value={category.id}
+                              >
+                                {category.name}
+                              </option>
+                            )
+                          })
+                        }
+                      </select>
+                    </div>
+                  </div>
+                  <div className="">
+                    <label className="uk-form-label" htmlFor="form-stacked-select-interior-sub-category">Interior Sub Category</label>
+                    <div className="uk-form-controls">
+                      <select
+                        className="uk-select"
+                        id="form-stacked-select-interior-sub-category"
+                        onChange={e => handleCategoriesFormChange(parseInt(e.target.value), 'interiorSubCategory', i)}
+                        disabled={!element.category || !element.subCategory || !memoCategories(i).interiorSubCategories.length}
+                      >
+                        {
+                          memoCategories(i).interiorSubCategories?.map(category => {
+                            return (
+                              <option
+                                key={category.id}
+                                value={category.id}
+                              >
+                                {category.name}
+                              </option>
+                            )
+                          })
+                        }
+                      </select>
+                    </div>
+                  </div>
+                  <div className="">
+                    <label className="uk-form-label" htmlFor="form-stacked-select-interior-sub-category">Display</label>
+                    <div
+                      className="uk-form-controls uk-text-capitalize uk-margin-small-top"
+                    >
+                      <button
+                        className="uk-button uk-button-link"
+                        onClick={() => handleCategoriesFormChange(element.onDisplay === DisplayOptions.HIDDEN ? DisplayOptions.DISPLAY : DisplayOptions.HIDDEN, 'onDisplay', i)}
+                      >
+                        <span className={(element.onDisplay === DisplayOptions.HIDDEN ? 'red' : 'green') + '-circle'}></span>
+                        {element.onDisplay}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )
+            })
+          }
+          <button
+            className="uk-button uk-button-text uk-margin-top"
+            onClick={addCategory}
+          >
+            Add Category
+          </button>
+        </div>
         <div className="separator"></div>
         <div className="uk-margin">
           <label
