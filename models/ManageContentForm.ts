@@ -62,6 +62,8 @@ type Form = {
    * App notifications
    */
   dashboardNotifications: AppNotificationOptions.HIGH_PRIORITY | AppNotificationOptions.OFF | AppNotificationOptions.ON
+
+  searchTags: string
 }
 
 export default Form

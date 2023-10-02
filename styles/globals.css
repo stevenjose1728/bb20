@@ -200,6 +200,12 @@ body {
   margin-left: 5%;
 }
 
+.manage-content-accordion .uk-accordion-title {
+  background-color: #878787;
+  color: white;
+  padding: .5%;
+}
+
 main {
   background-color: white;
 }

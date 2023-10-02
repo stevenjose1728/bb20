@@ -65,7 +65,8 @@ function index() {
     enableMlsSearch: false,
     packageTemplate: false,
     postType: DisplayOptionsPostType.template,
-    dashboardNotifications: AppNotificationOptions.ON
+    dashboardNotifications: AppNotificationOptions.ON,
+    searchTags: ''
   }
   const [form, setForm] = useState<Form>(initialStateForm);
   const handleFormChange = (value: string | boolean, key: keyof Form) => {
@@ -134,7 +135,7 @@ function index() {
   return (
     <Layout>
       <div
-        className='uk-padding'
+        className='uk-padding manage-content-accordion'
       >
         <h2>
           Create/Edit
@@ -166,6 +167,32 @@ function index() {
             handleFormChange={handleFormChange}
             form={form}
           />
+          <div className="uk-margin" uk-margin>
+            <div data-uk-form-custom="target: true">
+              <label htmlFor="searchTags" className='uk-text-bold'>Search Tags</label>
+              <textarea
+                id='searchTags'
+                name="searchTags"
+                className="uk-textarea"
+                rows={1}
+                placeholder="Textarea"
+                aria-label="Textarea"
+                onChange={e => handleFormChange(e.target.value, 'searchTags')}
+                value={form.searchTags}
+              >
+
+              </textarea>
+
+            </div>
+            <button className="uk-button uk-button-default uk-margin-top uk-margin-left">Submit</button>
+          </div>
+          <div className="separator"></div>
+          <div>
+            <button className="uk-button uk-button-text uk-margin-right">Submit</button>
+            <button className="uk-button uk-button-text uk-margin-left uk-margin-right">Submit & View</button>
+            <button className="uk-button uk-button-text uk-text-danger uk-margin-left">Cancel</button>
+
+          </div>
         </ul>
       </div>
     </Layout>
