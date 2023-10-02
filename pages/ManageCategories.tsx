@@ -247,8 +247,8 @@ function ManageCategories() {
               </div>
             </div>
           </div>
-          <div className="uk-container custom-table">
-            <div className="uk-grid-column-small uk-grid-row-large uk-child-width-1-5@s uk-text-center custom-table-header" data-uk-grid>
+          <div className="custom-table">
+            <div className="uk-grid-column-small uk-grid-row-large uk-child-width-1-5@s uk-text-center custom-table-header uk-margin-remove-left" data-uk-grid>
               <div>
                 Name
               </div>
