@@ -9,6 +9,8 @@ import { DisplayItemOptions, DisplayOptionsPostType, Featured } from '@/models/D
 import CategoryForm from '@/models/ManageContentCategoriesForm';
 import CategoriesData from '@/data/CategoriesData.json';
 import { DisplayOptions } from '@/models/DisplayEnum';
+import AppNotificationsCards from '@/components/ManageContent/AppNotificationsCards';
+import { AppNotificationOptions } from '@/models/AppNotificationsEnum';
 
 function index() {
   const defaultCategoryForm: CategoryForm = {
@@ -62,7 +64,8 @@ function index() {
     unlockedPost: false,
     enableMlsSearch: false,
     packageTemplate: false,
-    postType: DisplayOptionsPostType.template
+    postType: DisplayOptionsPostType.template,
+    dashboardNotifications: AppNotificationOptions.ON
   }
   const [form, setForm] = useState<Form>(initialStateForm);
   const handleFormChange = (value: string | boolean, key: keyof Form) => {
@@ -158,6 +161,10 @@ function index() {
             handleCategoriesFormChange={handleCategoriesFormChange}
             memoCategories={memoCategories}
             handleRemoveCategory={handleRemoveCategory}
+          />
+          <AppNotificationsCards
+            handleFormChange={handleFormChange}
+            form={form}
           />
         </ul>
       </div>

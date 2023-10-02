@@ -1,3 +1,4 @@
+import { AppNotificationOptions } from "./AppNotificationsEnum"
 import AssociatedFile from "./AssociatedFile"
 import CustomLink from "./CustomLink"
 import { DisplayItemOptions, DisplayOptionsPostType, Featured } from "./DisplayOptionsEnum"
@@ -57,6 +58,10 @@ type Form = {
   enableMlsSearch: boolean,
   packageTemplate: boolean,
   postType: DisplayOptionsPostType.externalUrl | DisplayOptionsPostType.page | DisplayOptionsPostType.staticDocument | DisplayOptionsPostType.template
+  /**
+   * App notifications
+   */
+  dashboardNotifications: AppNotificationOptions.HIGH_PRIORITY | AppNotificationOptions.OFF | AppNotificationOptions.ON
 }
 
 export default Form
