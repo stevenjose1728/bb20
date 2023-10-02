@@ -5,6 +5,7 @@ import { DisplayItemOptions, DisplayOptionsPostType, Featured } from "./DisplayO
 import CategoryForm from "./ManageContentCategoriesForm"
 
 type Form = {
+  id?: number
   title: string,
   prettyUrl: string,
   subtitle: string,

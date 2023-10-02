@@ -4,9 +4,13 @@ import Layout from '@/components/Layout/Layout'
 import Link from 'next/link'
 import { SpinnerContext } from '@/context/SpinnerContext';
 import ContentData from '@/data/ContentData.json';
+import Form from '@/models/ManageContentForm';
+import { DisplayItemOptions } from '@/models/DisplayOptionsEnum';
+import { useRouter } from 'next/router';
 
 function indexPage() {
-  const { data: contentData } = ContentData
+  const router = useRouter();
+  const contentData = ContentData.data as Form[]
   const emptyCategoryFilter = { category: null, subCategory: null, interiorSubCategory: null }
   const { startLoading, stopLoading } = useContext(SpinnerContext);
   const { data, subCategories: subCategoriesData, interiorSubCategories: interiorSubCategoriesData } = CategoriesData;
@@ -69,6 +73,23 @@ function indexPage() {
       interiorSubCategories: _interiorSubCategories
     };
   }, [categoryFilter]);
+
+  const getItemCategories = (item: Form): string => {
+    let _categories = item.categories.map(element => {
+      const category = data.find(_element => _element.id === element.category);
+      return category?.name || '';
+    })
+    return _categories.join(', ');
+  }
+
+  const editContent = (item: Form) => {
+    router.push({
+      pathname: '/content-form',
+      query: {
+        contentId: item.id
+      }
+    }, '/content-form');
+  }
   return (
     <Layout>
       <div className="uk-card uk-card-default uk-card-body custom-card">
@@ -262,16 +283,20 @@ function indexPage() {
                 contentData.map((item) => (
                   <tr key={item.id}>
                     <td >{item.title}</td>
-                    <td>{item.category} </td>
+                    <td>{getItemCategories(item)} </td>
                     <td className='uk-text-capitalize'>
-                      <span className={(item.display === 'hidden' ? 'red' : 'green') + '-circle'}></span>
-                      {item.display}
+                      <span className={(item.displayItem === DisplayItemOptions.hide ? 'red' : 'green') + '-circle'}></span>
+                      {item.displayItem}
                     </td>
                     <td>
 
                     </td>
                     <td>
-                      <Link href={'/edit/' + item.id} data-uk-icon="icon: pencil"></Link>
+                      <button
+                        className="uk-button uk-button-link"
+                        data-uk-icon="icon: pencil"
+                        onClick={() => editContent(item)}
+                      />
                     </td>
                     <td>
                       <Link href={'/delete/' + item.id} data-uk-icon="icon: trash"></Link>
