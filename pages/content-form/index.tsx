@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import Layout from '@/components/Layout/Layout'
 import GeneralCard from '@/components/ManageContent/GeneralCard';
 import Form from '@/models/ManageContentForm';
@@ -11,8 +11,12 @@ import CategoriesData from '@/data/CategoriesData.json';
 import { DisplayOptions } from '@/models/DisplayEnum';
 import AppNotificationsCards from '@/components/ManageContent/AppNotificationsCards';
 import { AppNotificationOptions } from '@/models/AppNotificationsEnum';
+import { useRouter } from 'next/router';
+import ContentData from '@/data/ContentData.json';
 
 function index() {
+  const router = useRouter();
+  const { data: contentData } = ContentData
   const defaultCategoryForm: CategoryForm = {
     category: 1,
     subCategory: 2,
@@ -68,6 +72,16 @@ function index() {
     dashboardNotifications: AppNotificationOptions.ON,
     searchTags: ''
   }
+  const mountConfig = () => {
+    if (router.query.contentId) {
+      const contentId = parseInt(router.query.contentId.toString());
+      const element = contentData.find(element => element.id === contentId) as Form;
+      setForm(element);
+    }
+  }
+  useEffect(() => {
+    mountConfig()
+  }, [])
   const [form, setForm] = useState<Form>(initialStateForm);
   const handleFormChange = (value: string | boolean, key: keyof Form) => {
     setForm({
