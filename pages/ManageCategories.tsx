@@ -1,7 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useMemo } from 'react'
 import CategoriesData from '@/data/CategoriesData.json'
 import Layout from '@/components/Layout/Layout'
-import Link from 'next/link'
 import { SpinnerContext } from '@/context/SpinnerContext';
 import { CategoryService } from '@/services';
 import { Category } from '@/models/Category';
@@ -144,6 +143,18 @@ function ManageCategories() {
     }
   }
 
+  const memoContentData = useMemo(() => {
+    let _contentData = categories;
+    if (display) {
+      _contentData = _contentData.filter(element => element.onDisplay === (display === 'on display'));
+    }
+    if (filterName) {
+      _contentData = _contentData.filter(element => element.categoryName.toLowerCase().includes(filterName.toLowerCase()));
+    }
+
+    return _contentData
+  }, [display, filterName])
+
   return (
     <Layout>
       <div className="uk-card uk-card-default uk-card-body custom-card">
@@ -266,7 +277,7 @@ function ManageCategories() {
               </div>
             </div>
             <CategoriesRows
-              categories={categories}
+              categories={memoContentData}
               handleRedirect={handleRedirect}
               loadInteriorCategories={loadInteriorCategories}
               loadSubCategories={loadSubCategories}
